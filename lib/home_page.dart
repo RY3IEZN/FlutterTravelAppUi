@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_app/widgets/destination_carousel.dart';
+import 'package:flutter_travel_app/widgets/hotel_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -13,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   // variables,components
 
   int _selectedIndex = 0;
+  int _currentTab = 0;
 
   final List<IconData> _icons = [
     FontAwesomeIcons.plane,
@@ -75,12 +77,31 @@ class _HomePageState extends State<HomePage> {
                   )
                   .toList(),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            DestinationCarousel(),
+            const DestinationCarousel(),
+            const SizedBox(height: 10),
+            const HotelCarousel()
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_pizza), label: "Resturants"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.circle_outlined), label: "profile"),
+        ],
+        selectedItemColor: Colors.indigo,
+        showUnselectedLabels: false,
+        currentIndex: _currentTab,
+        onTap: (int index) {
+          setState(() {
+            _currentTab = index;
+          });
+        },
       ),
     );
   }
